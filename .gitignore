@@ -5,3 +5,8 @@ yellow_tripdata_2021-01.csv
 *.pyc
 venv
 .env
+.credentials
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
