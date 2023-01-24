@@ -1,7 +1,7 @@
 data
 pgdata
-week1/docker_sql/ny_taxi_postgres_data/
-week1/docker_sql/pgdata
+docker_sql/ny_taxi_postgres_data/
+docker_sql/pgdata
 output
 yellow_head.csv
 yellow_tripdata_2021-01.csv
