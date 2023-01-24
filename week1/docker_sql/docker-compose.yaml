@@ -6,9 +6,9 @@ services:
     - POSTGRES_PASSWORD=root
     - POSTGRES_DB=ny_taxi
     volumes:
-      - ~/works/de-zoomcamp/week1/docker_sql/ny_taxi_postgres_data:/var/lib/postgresql/data:rw
-    user:
-      "${UID}:${GID}"
+      - ~/works/de-zoomcamp/pgdata/ny_taxi_postgres_data:/var/lib/postgresql/data:rw
+    #user:
+    #  "${UID}:${GID}"
     ports:
       - "5432:5432"
 

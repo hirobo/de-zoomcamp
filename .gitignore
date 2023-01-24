@@ -1,5 +1,8 @@
+data
+pgdata
 week1/docker_sql/ny_taxi_postgres_data/
-output.csv.gz
+week1/docker_sql/pgdata
+output
 yellow_head.csv
 yellow_tripdata_2021-01.csv
 *.pyc

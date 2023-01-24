@@ -18,28 +18,56 @@ def main(params):
     table_name = params.table_name
     url = params.url
 
-    csv_name = "output.csv.gz"
+    compression = None
+
+    if params.url.endswith("csv.gz"):
+        compression = "gzip"
+
+    csv_name = "output"
     os.system(f"wget {url} -O {csv_name}")
 
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
 
-    df_iter = pd.read_csv(csv_name, iterator=True, chunksize=100000, compression='gzip')
+    df_iter = pd.read_csv(csv_name, iterator=True, chunksize=100000, compression=compression)
 
     df = next(df_iter)
 
-    df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-    df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+    if "yellow_tripdata" in url:
+
+        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+
+    elif "green_tripdata" in url:
+
+        df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+        df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
+
+    elif "taxi+_zone_lookup" in url:
+        None
+
+    else:
+        print("we don't handle with the data given by the url.")
+        return -1
 
     df.head(n=0).to_sql(name=table_name, con=engine, if_exists="replace")
+
+    df.to_sql(name=table_name, con=engine, if_exists="append")
 
     while True:
         try:
             t_start = time()
             
             df = next(df_iter)
-            
-            df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-            df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+
+            if "yellow_tripdata" in url:
+
+                df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+                df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+
+            elif "green_tripdata" in url:
+
+                df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+                df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
 
             df.to_sql(name=table_name, con=engine, if_exists="append")
 
@@ -47,7 +75,9 @@ def main(params):
 
             print("inserted another chunk..., took %.3f second" % (t_end - t_start))
         except StopIteration:
+            print("Finished ingesting data into the postgres database")
             break            
+
 
 if __name__ == "__main__":
 
