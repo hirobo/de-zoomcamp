@@ -1,10 +1,9 @@
 data
 pgdata
 output
-yellow_head.csv
-yellow_tripdata_2021-01.csv
 *.pyc
 venv
+venv-w*
 .env
 .credentials
 .terraform
