@@ -10,3 +10,4 @@ venv-w*
 terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
+*-deployment.yaml
