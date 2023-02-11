@@ -38,3 +38,18 @@ WHERE pickup_datetime BETWEEN "2019-03-01" AND "2019-03-31";
 -- Query scan for partitioned/clustered table: 20.05 MB
 SELECT COUNT(DISTINCT affiliated_base_number) FROM `de-zoomcamp-375510.nytaxi.fhv_tripdata_2019_partitoned_clustered`
 WHERE pickup_datetime BETWEEN "2019-03-01" AND "2019-03-31";
+
+-- Creating external table referring to gcs path from parquet files
+CREATE OR REPLACE EXTERNAL TABLE `de-zoomcamp-375510.nytaxi.external_fhv_tripdata_from_parquet_2019`
+OPTIONS (
+  format = 'PARQUET',
+  uris = ['gs://hirobo_prefect_zoomcamp/data/fhv/fhv_tripdata_2019-*.parquet']
+);
+
+-- Check fhv trip data 
+SELECT * FROM `de-zoomcamp-375510.nytaxi.external_fhv_tripdata_from_parquet_2019` limit 10;
+
+-- Create a non partitioned table from external table created from parquet files
+CREATE OR REPLACE TABLE `de-zoomcamp-375510.nytaxi.fhv_tripdata_from_parquet_2019` AS
+SELECT * FROM `de-zoomcamp-375510.nytaxi.external_fhv_tripdata_from_parquet_2019`;
+
