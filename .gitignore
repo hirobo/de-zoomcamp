@@ -12,5 +12,6 @@ terraform.tfstate.backup
 .terraform.lock.hcl
 *-deployment.yaml
 .ipynb_checkpoints
+tmp
 
 
