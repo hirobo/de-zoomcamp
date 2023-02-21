@@ -13,5 +13,7 @@ terraform.tfstate.backup
 *-deployment.yaml
 .ipynb_checkpoints
 tmp
+week5/lib
+
 
 
