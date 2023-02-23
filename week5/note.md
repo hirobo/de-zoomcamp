@@ -1,11 +1,11 @@
 ## create spark cluster in local
 run master
 ```
-$ ~/opt/spark-3.3.1-bin-hadoop3/sbin/start-master.sh
+$ ~/opt/spark-3.3.2-bin-hadoop3/sbin/start-master.sh
 ```
 run workers 
 ```
-$ ~/opt/spark-3.3.1-bin-hadoop3/sbin/start-worker.sh spark://isolde:7077
+$ ~/opt/spark-3.3.2-bin-hadoop3/sbin/start-worker.sh spark://isolde:7077
 ```
 
 ## run 10_spark_sql.py script with parameters
@@ -22,7 +22,7 @@ $ python 10_spark_sql.py \
 URL="spark://isolde:7077"
 ```
 ```
-~/opt/spark-3.3.1-bin-hadoop3/bin/spark-submit \
+~/opt/spark-3.3.2-bin-hadoop3/bin/spark-submit \
   --master "${URL}" \
   10_spark_sql.py \
     --input_green=data/pq/green/2021/* \
@@ -49,7 +49,7 @@ gcloud dataproc jobs submit pyspark \
  --region=europe-west3 \
  gs://dtc_data_lake_de-zoomcamp-375510/code/10_spark_sql.py \
  -- \
-    --input_green=gs://dtc_data_lake_de-zoomcamp-375510/pq/green/2021/* \
-    --input_yellow=gs://dtc_data_lake_de-zoomcamp-375510/pq/yellow/2021/*  \
-    --output=gs://dtc_data_lake_de-zoomcamp-375510/report-2021
+    --input_green=gs://dtc_data_lake_de-zoomcamp-375510/pq/green/2020/* \
+    --input_yellow=gs://dtc_data_lake_de-zoomcamp-375510/pq/yellow/2020/*  \
+    --output=gs://dtc_data_lake_de-zoomcamp-375510/report-2020
 ```
