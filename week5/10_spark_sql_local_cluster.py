@@ -20,7 +20,6 @@ input_yellow = args.input_yellow
 output = args.output
 
 spark = SparkSession.builder \
-    .master("spark://isolde:7077") \
     .appName('test') \
     .getOrCreate()
 
