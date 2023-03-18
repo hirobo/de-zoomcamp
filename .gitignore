@@ -14,6 +14,10 @@ terraform.tfstate.backup
 .ipynb_checkpoints
 tmp
 week5/lib
+__pycache__
+week6/python/resources/*.csv
+week6/python/resources/*.csv.gz
+.vscode
 
 
 
